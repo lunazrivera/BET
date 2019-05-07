@@ -7,6 +7,17 @@
   height: 40vmin;
   pointer-events: none;
 }
+/* 
+.container.valign-wrapper {
+  background-image: url("../public/images/house-madeOf-money.jpg");
+  background-color: #cccccc;
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+} */
+
 
 .App-header {
   background-color: #282c34;

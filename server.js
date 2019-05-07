@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+// Go to user route
 const users = require("./routes/api/user")
 
 const PORT = process.env.PORT || 3002;
