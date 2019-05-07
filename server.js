@@ -1,9 +1,10 @@
+//Requiring dependencies for our server functionality
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-const users = require("./routes/api/user")
+const users = require("./routes/api/user"); //Requiring the path for the request to be made got to user routes
 
 const PORT = process.env.PORT || 3002;
 const app = express();
