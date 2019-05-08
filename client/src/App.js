@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import Album from './components/album';
 
+
 function App() {
   return <Album />
 }
