@@ -1,5 +1,4 @@
 import React from "react";
-
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import Button from "@material-ui/core/Button";
@@ -8,15 +7,13 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Footer from "./Footer/Footer.js";
-
+import Cards from "./Cards/Cards.js";
   
 const styles = theme => ({
   root: {
@@ -70,7 +67,16 @@ const styles = theme => ({
 });
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8];
+const cards = [
+    'assets/images/car.jpg',
+    'assets/images/house.jpg',
+    'assets/images/food.jpg',
+    'assets/images/entertainment.jpg',
+    'assets/images/shopping.jpg',
+    'assets/images/misc.jpg',
+    'assets/images/phone.jpg',
+    'assets/images/airplane.jpg'
+];
   
 
 function Album(props) {
@@ -117,12 +123,12 @@ function Album(props) {
 
 
           <Grid container spacing={24}>
-            {cards.map(card => (
-              <Grid item key={card} xs={6} md={4} lg={3}>
+            {cards.map((image, i) => (
+              <Grid item key={i} xs={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="assets/images/car.jpg" // eslint-disable-line max-len
+                    image={image} // eslint-disable-line max-len
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
