@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/lunazrivera/BET#readme",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "bcryptjs": "^2.4.3",
     "concurrently": "^4.1.0",
     "dotenv": "^8.0.0",
