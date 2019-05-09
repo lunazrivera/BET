@@ -7,20 +7,17 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Footer from "./Footer/Footer.js";
-import Cards from "./Cards/Cards.js";
-  
+import AppBar from "./AppBar/AppBar.js";
+
+
+
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
-  },
-  appBar: {
-    position: "relative"
   },
   icon: {
     marginRight: theme.spacing.unit * 2
@@ -60,10 +57,6 @@ const styles = theme => ({
   cardContent: {
     flexGrow: 1
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6
-  }
 });
 
 
@@ -84,14 +77,7 @@ function Album(props) {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            BET Expense Tracker
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <AppBar />
       <main>
 
 
@@ -156,7 +142,7 @@ function Album(props) {
       </main>
 
  
-
+  
     <Footer classes={classes}></Footer>
     </React.Fragment>
 
