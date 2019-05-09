@@ -2,6 +2,23 @@ import React from 'react';
 import '../../App.css';
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import { withStyles } from '@material-ui/core/styles';
+
+
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing.unit * 6,
+  },
+});
+
 
 
 
@@ -33,4 +50,4 @@ Footer.propTypes = {
 
 
 
-export default Footer;
+export default withStyles(styles)(Footer);

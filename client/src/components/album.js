@@ -16,8 +16,8 @@ import AppBar from "./AppBar/AppBar.js";
 
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
+  appBar: {
+    position: 'relative',
   },
   icon: {
     marginRight: theme.spacing.unit * 2
@@ -56,6 +56,10 @@ const styles = theme => ({
   },
   cardContent: {
     flexGrow: 1
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing.unit * 6,
   },
 });
 

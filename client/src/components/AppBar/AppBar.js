@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 
 
 const styles = {
+  appBar: {
+    position: 'relative',
+  },
   root: {
     flexGrow: 1,
   },
