@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 
+
 //// Styles
 const styles = theme => ({
   root: {
@@ -46,7 +47,7 @@ render() {
 {/* Grid Row-1 */}
       <Grid container className={classes.root} spacing={24}>
         <Grid item xs={12}>
-          <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
             {[0, 1, 2].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
@@ -58,8 +59,8 @@ render() {
 {/* Grid Row-2 */}
       <Grid container className={classes.root} spacing={24}>
         <Grid item xs={12}>
-          <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-            {[0, 1, 2].map(value => (
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+            {[3, 4, 5].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
