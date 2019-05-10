@@ -2,11 +2,11 @@ import React from 'react';
 // eslint-disable-next-line
 import logo from './logo.svg';
 import './App.css';
-import Album from './components/album';
+import Main from './components/Main';
 
 
 function App() {
-  return <Album />
+  return <Main />
 }
 
 export default App;
