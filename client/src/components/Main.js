@@ -47,8 +47,25 @@ render() {
 {/* Grid Row-1 */}
       <Grid container className={classes.root} spacing={24}>
         <Grid item xs={12}>
+{/* CardCar */}
           <Grid container className={classes} justify="center" spacing={Number(spacing)}>
-            {[0, 1, 2].map(value => (
+            {[0].map(value => (
+              <Grid key={value} item>
+                <Paper className={classes.paper} />
+              </Grid>
+            ))}
+          </Grid>
+{/* CardEnt */}
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+            {[1].map(value => (
+              <Grid key={value} item>
+                <Paper className={classes.paper} />
+              </Grid>
+            ))}
+          </Grid>
+{/* CardFood */}
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+            {[2].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
@@ -59,15 +76,33 @@ render() {
 {/* Grid Row-2 */}
       <Grid container className={classes.root} spacing={24}>
         <Grid item xs={12}>
+{/* CardMisc */}
           <Grid container className={classes} justify="center" spacing={Number(spacing)}>
-            {[3, 4, 5].map(value => (
+            {[3].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
             ))}
           </Grid>
         </Grid>
+{/* CardShop */}
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+            {[4].map(value => (
+              <Grid key={value} item>
+                <Paper className={classes.paper} />
+              </Grid>
+            ))}
+          </Grid>
+{/* CardUtil */}
+          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+            {[5].map(value => (
+              <Grid key={value} item>
+                <Paper className={classes.paper} />
+              </Grid>
+            ))}
+          </Grid>
       </Grid>
+
       </main>
 {/* Footer */}
     <Footer />
