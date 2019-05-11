@@ -54,22 +54,18 @@ render() {
                 <Paper className={classes.paper} />
               </Grid>
             ))}
-          </Grid>
 {/* CardEnt */}
-          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
             {[1].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
             ))}
-          </Grid>
 {/* CardFood */}
-          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
             {[2].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
-            ))}
+            ))} 
           </Grid>
         </Grid>
       </Grid>
@@ -83,24 +79,20 @@ render() {
                 <Paper className={classes.paper} />
               </Grid>
             ))}
-          </Grid>
-        </Grid>
-{/* CardShop */}
-          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+{/* CardShop */}            
             {[4].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
             ))}
-          </Grid>
 {/* CardUtil */}
-          <Grid container className={classes} justify="center" spacing={Number(spacing)}>
             {[5].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
               </Grid>
             ))}
           </Grid>
+        </Grid>
       </Grid>
 
       </main>
