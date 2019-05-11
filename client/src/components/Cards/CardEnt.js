@@ -18,15 +18,16 @@ const styles = {
     maxHeight: 500,
   },
   media: {
-    maxHeight: 500,
-    maxWidth: 500,
+    margin: 'auto',
+    width: 250,
+    height: 250
   },
 };
 
 function CardEnt(props) {
   const { classes } = props;
   return (
-    <Card className={classes.card}>
+    <Card className={(props.mancss)}>
 {/* Set Your Budget Button */}
       <CardActions>
         <Button size="small" color="primary">

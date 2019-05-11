@@ -12,6 +12,7 @@ import CardFood from "./Cards/CardFood.js";
 import CardMisc from "./Cards/CardMisc.js";
 import CardShop from "./Cards/CardShop.js";
 import CardUtil from "./Cards/CardUtil.js";
+import { CardContent } from "@material-ui/core";
 
 
 //// Styles
@@ -40,8 +41,8 @@ class Main extends React.Component {
 //// Render
 render() {
   const { classes } = this.props;
+  classes.media = 'media'
   const { spacing } = this.state;
-
   return (
     <React.Fragment>
 {/* App Bar*/}
@@ -56,22 +57,19 @@ render() {
 {/* CardCar */} 
             {[0].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardCar />
+                <CardCar mancss={classes.paper} />
               </Grid>
             ))}
 {/* CardEnt */}
             {[1].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardEnt />
+                <CardEnt mancss={classes.paper} />
               </Grid>
             ))}
 {/* CardFood */}
             {[2].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardFood />
+                <CardFood mancss={classes.paper} />
               </Grid>
             ))} 
           </Grid>
@@ -84,22 +82,19 @@ render() {
 {/* CardMisc */}
             {[3].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardMisc />
+                <CardMisc mancss={classes.paper} />    
               </Grid>
             ))}
 {/* CardShop */}            
             {[4].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardShop />
+                <CardShop mancss={classes.paper} />
               </Grid>
             ))}
 {/* CardUtil */}
             {[5].map(value => (
               <Grid key={value} item>
-                <Paper className={classes.paper} />
-                <CardUtil />
+                <CardUtil mancss={classes.paper} />
               </Grid>
             ))}
           </Grid>
