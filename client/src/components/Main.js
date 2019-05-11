@@ -6,7 +6,12 @@ import Footer from "./Footer/Footer.js";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
+import CardCar from "./Cards/CardCar.js";
+import CardEnt from "./Cards/CardEnt.js";
+import CardFood from "./Cards/CardFood.js";
+import CardMisc from "./Cards/CardMisc.js";
+import CardShop from "./Cards/CardShop.js";
+import CardUtil from "./Cards/CardUtil.js";
 
 
 //// Styles
@@ -52,18 +57,21 @@ render() {
             {[0].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardCar />
               </Grid>
             ))}
 {/* CardEnt */}
             {[1].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardEnt />
               </Grid>
             ))}
 {/* CardFood */}
             {[2].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardFood />
               </Grid>
             ))} 
           </Grid>
@@ -77,18 +85,21 @@ render() {
             {[3].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardMisc />
               </Grid>
             ))}
 {/* CardShop */}            
             {[4].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardShop />
               </Grid>
             ))}
 {/* CardUtil */}
             {[5].map(value => (
               <Grid key={value} item>
                 <Paper className={classes.paper} />
+                <CardUtil />
               </Grid>
             ))}
           </Grid>
