@@ -18,6 +18,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import DatePicker from '/Users/damia/Desktop/BET/client/src/components/DatePicker/DatePicker.js';
+
 
 
 
@@ -53,7 +55,7 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'date', numeric: true, disablePadding: true, label: 'Date(MM/DD/YY)', align: 'center'},
+  { id: 'date', numeric: true, disablePadding: true, label: 'Date', align: 'center'},
   { id: 'name', numeric: false, disablePadding: false, label: 'Name', align: 'center'},
   { id: 'category', numeric: false, disablePadding: false, label: 'Category', align: 'center'},
   { id: 'amount', numeric: true, disablePadding: false, label: 'Amount($)', align: 'center'},
@@ -208,9 +210,9 @@ class ExpenseTable extends React.Component {
     orderBy: 'date',
     selected: [],
     data: [
-      createData('date', 1, 1, 20),
-      createData('date', 1, 1, 60),
-      createData('date', 1, 1, 80),
+      createData('', 1, 1, 20),
+      createData('', 2, 2, 60),
+      createData('', 3, 3, 80),
     ],
     page: 0,
     rowsPerPage: 5,
@@ -304,6 +306,7 @@ class ExpenseTable extends React.Component {
                       </TableCell>
                       <TableCell align="center" component="th" scope="row" padding="none">
                         {n.date}
+                        <DatePicker />
                       </TableCell>
                       <TableCell align="center">{n.name}</TableCell>
                       <TableCell align="center">{n.category}</TableCell>

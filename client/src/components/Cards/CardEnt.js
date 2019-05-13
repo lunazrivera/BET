@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import ModalBudget from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalBudget.js";
 import ProgressBar from "/Users/damia/Desktop/BET/client/src/components/ProgressBar/ProgressBar.js";
 import ModalTable from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalTable.js";
+import ModalCalculatorTable from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalCalculatorTable.js";
+
+
 
 
 const styles = {
@@ -35,7 +38,10 @@ function CardEnt(props) {
           <ModalBudget />
 {/* ModalTable Practice Start */} 
           <ModalTable />
-{/* ModalTable Practice End */}               
+{/* ModalTable Practice End */}     
+{/* ModalCalculatorTable Practice Start */} 
+          <ModalCalculatorTable />
+{/* ModalCalculatorTable Practice End */}              
         </Button>
       </CardActions>
 {/* Set Your Budget Button End*/}     
