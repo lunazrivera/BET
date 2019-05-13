@@ -3,16 +3,14 @@ import PropTypes from "prop-types";
 import AppBar from "./AppBar/AppBar.js";
 import Header from "./Header/Header.js";
 import Footer from "./Footer/Footer.js";
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { withStyles, Grid } from '@material-ui/core';
 import CardCar from "./Cards/CardCar.js";
 import CardEnt from "./Cards/CardEnt.js";
 import CardFood from "./Cards/CardFood.js";
 import CardMisc from "./Cards/CardMisc.js";
 import CardShop from "./Cards/CardShop.js";
 import CardUtil from "./Cards/CardUtil.js";
-import { CardContent } from "@material-ui/core";
+
 
 
 //// Styles

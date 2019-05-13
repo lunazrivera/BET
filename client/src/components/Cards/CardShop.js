@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ModalBudget from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalBudget.js";
+import ProgressBar from "/Users/damia/Desktop/BET/client/src/components/ProgressBar/ProgressBar.js";
 
 
 
@@ -52,6 +53,8 @@ function CardShop(props) {
           <Typography component="p">
             Manage your Shopping expenses with BET.
           </Typography>
+{/* ProgressBar */}        
+          <ProgressBar /> 
         </CardContent>  
       </CardActionArea>
     </Card>

@@ -9,7 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ModalBudget from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalBudget.js";
-
+import ProgressBar from "/Users/damia/Desktop/BET/client/src/components/ProgressBar/ProgressBar.js";
+import ModalTable from "/Users/damia/Desktop/BET/client/src/components/ModalBudget/ModalTable.js";
 
 
 const styles = {
@@ -20,7 +21,7 @@ const styles = {
   media: {
     margin: 'auto',
     width: 250,
-    height: 250
+    height: 250,
   },
 };
 
@@ -32,10 +33,12 @@ function CardEnt(props) {
       <CardActions>
         <Button size="small" color="primary">
           <ModalBudget />
+{/* ModalTable Practice Start */} 
+          <ModalTable />
+{/* ModalTable Practice End */}               
         </Button>
       </CardActions>
 {/* Set Your Budget Button End*/}     
-
       <CardActionArea>
 {/* Image */}
         <CardMedia
@@ -43,7 +46,6 @@ function CardEnt(props) {
           image="assets/images/entertainment.jpg"
           title="Entertainment"
         />
-
 {/* Expense Type */}        
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -52,6 +54,8 @@ function CardEnt(props) {
           <Typography component="p">
             Manage your Entertainment expenses with BET.
           </Typography>
+{/* ProgressBar */}        
+          <ProgressBar /> 
         </CardContent>  
       </CardActionArea>
     </Card>

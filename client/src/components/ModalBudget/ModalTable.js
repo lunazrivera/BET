@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import TextBoxBudget from '/Users/damia/Desktop/BET/client/src/components/ModalBudget/TextBox/TextBoxBudget.js';
-import SubmitButton from '/Users/damia/Desktop/BET/client/src/components/Buttons/SubmitButton.js';
+import ExpenseTable from '/Users/damia/Desktop/BET/client/src/components/ExpenseTable/ExpenseTable.js';
 
 
 
@@ -27,7 +25,9 @@ function getModalStyle() {
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    width: theme.spacing.unit * 50,
+    width: 1200,
+    height: 500,
+    
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
@@ -52,27 +52,21 @@ class SimpleModal extends React.Component {
     const { classes } = this.props;
 
     return (
+    <React.Fragment>
       <div>
-        <Button onClick={this.handleOpen}>BUDGET</Button>
+        <Button onClick={this.handleOpen}>EXPENSE</Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
-              Set Your Budget!
-            </Typography>
-{/* Import TextBoxBudget <TextBoxBudget /> */}
-            <Typography variant="subtitle1" id="simple-modal-description">
-            <TextBoxBudget />
-            </Typography>
-{/* Import SubmitButton <SubmitButton /> */}
-            <SubmitButton />          
+          <div style={getModalStyle()} className={classes.paper}>  
+          <ExpenseTable />      
           </div>
         </Modal>
       </div>
+    </React.Fragment>
     );
   }
 }
@@ -83,6 +77,6 @@ SimpleModal.propTypes = {
 };
 
 // We need an intermediary variable for handling the recursive nesting.
-const ModalBudget = withStyles(styles)(SimpleModal);
+const ModalTable = withStyles(styles)(SimpleModal);
 
-export default ModalBudget;
+export default ModalTable;
