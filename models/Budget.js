@@ -13,7 +13,11 @@ const BudgetSchema = new Schema ({
      value: {
           type: Number,
           required: true
+     },
+     date: {
+          type: Date,
+          default: Date.now
      }
 });
 
-module.exports = Budget = mongoose.model("Budget", BudgetSchema);
+module.exports = Budget = mongoose.model("budgets", BudgetSchema);

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TableStr from './../TableTemp/TableTemp'
 import {withStyles, Typography, Modal, LinearProgress, Button, CardHeader, Paper} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
 
 
 const styles = theme => ({
@@ -90,7 +91,7 @@ class CardStructure extends Component {
           this.setState({
             [event.target.id]: event.target.value,
           });
-        };
+     };
 
      handleSubmit(event) {
           event.preventDefault();
@@ -100,7 +101,14 @@ class CardStructure extends Component {
                category: this.props.name,
                value: this.state.budget
           };
-          console.log(newBudget);
+
+          this.saveBudget(newBudget);
+          
+     };
+
+     saveBudget =(object) => {
+          console.log(object);
+          axios.post("/api/budgets/set-budget", object).then((response) => { console.log(response)}).catch(err => console.log(err));
      };
 
      render() {

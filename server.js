@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 
 const users = require("./routes/api/user"); //Requiring the path for the request to be made got to user routes
-// const budgets = require("./routes/api/budget")
+const budgets = require("./routes/api/budget")
 
 const PORT = process.env.PORT || 3002;
 const app = express();
@@ -33,7 +33,7 @@ require("./config/passport")(passport);
 
 // Define API routes here
 app.use("/api/users", users);
-// app.use("/api/budget", budgets);
+app.use("/api/budgets", budgets);
 
 // Send every other request to the React app
 // Define any API routes before this runs
