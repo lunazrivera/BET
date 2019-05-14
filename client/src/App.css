@@ -1,0 +1,26 @@
+.page-container {
+     position: relative;
+     min-height: 100vh;
+}
+.content-wrap {
+     padding-bottom: 2.5rem;
+}
+
+.botfoo {
+     justify-content: center;
+     align-items: center;
+     display: flex;
+     box-shadow: 0 -3px 9px rgba(0,0,0, 0.3);
+     background: white;
+     padding-top: 0;
+     position:absolute;
+     bottom:0;
+     width:100%;
+     height:4.5rem;
+}
+.footer-text {
+     font-family: Roboto;
+     font-size: 17px;
+     font-weight: 500;
+     color: black;
+}
