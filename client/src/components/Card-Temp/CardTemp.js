@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import TableStr from './../TableTemp/TableTemp'
 import {withStyles, Typography, Modal, LinearProgress, Button, CardHeader, Paper} from "@material-ui/core";
+import TextField from '@material-ui/core/TextField';
+
 
 const styles = theme => ({
      card: {
@@ -39,7 +41,11 @@ const styles = theme => ({
           boxShadow: theme.shadows[5],
           padding: theme.spacing.unit * 4,
           outline: 'none',
-     }
+     },
+     textField: {
+          marginLeft: theme.spacing.unit,
+          marginRight: theme.spacing.unit,
+        },
 })
 
 function getModalStyle() {
@@ -65,6 +71,7 @@ class CardStructure extends Component {
           this.handleToggle = this.handleToggle.bind(this);
           this.handleOpen = this.handleOpen.bind(this);
           this.handleClose = this.handleClose.bind(this);
+          this.handleSubmit = this.handleSubmit.bind(this);
      };
      //This is the function that toggles which side of the card to render.
      handleToggle() {
@@ -78,6 +85,23 @@ class CardStructure extends Component {
      handleClose() {
           this.setState({open: false});
      }
+
+     handleChange = name => event => {
+          this.setState({
+            [event.target.id]: event.target.value,
+          });
+        };
+
+     handleSubmit(event) {
+          event.preventDefault();
+          alert('Amount was submitted: ' + this.state.budget);
+          let newBudget = {
+               userId: this.props.userIn.id,
+               category: this.props.name,
+               value: this.state.budget
+          };
+          console.log(newBudget);
+     };
 
      render() {
 
@@ -114,10 +138,23 @@ class CardStructure extends Component {
                                    <Typography variant="h6" id="modal-title">
                                         Set Your Budget for {this.props.name}!
                                    </Typography>
-                              {/* Import TextBoxBudget <TextBoxBudget /> */}
-                                   <Typography variant="subtitle1" id="simple-modal-description">
-                                        {/* <TextBoxBudget /> */}
-                                   </Typography>
+                                   <form onSubmit={this.handleSubmit}>
+                                   <TextField
+                                        id="budget"
+                                        label="$"
+                                        className={classes.textField}
+                                        onChange={this.handleChange('name')}
+                                        value={this.state.name}
+                                        margin="normal"
+                                        variant="outlined"
+                                   />
+
+                                   <div>
+                                   <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+                                   Submit
+                                   </Button>
+                                   </div>
+                                   </form>
                               {/* Import SubmitButton <SubmitButton /> */}
                                    {/* <SubmitButton /> */}
                               </div>

@@ -52,25 +52,25 @@ render() {
           <Grid item xs={12}>
               <Grid container className={classes} justify="center" spacing={Number(spacing)}>
                     <Grid key='0' item>
-                              <CardStr name={'Car'} cardImg={car} st={classes.paper} /> 
+                              <CardStr userIn={this.props.userIn} name={'Car'} cardImg={car} st={classes.paper} /> 
                     </Grid>
                     <Grid key='1' item>
-                              <CardStr name={'Entertainment'} cardImg={entertainment} st={classes.paper} />
+                              <CardStr userIn={this.props.userIn} name={'Entertainment'} cardImg={entertainment} st={classes.paper} />
                     </Grid>
                     <Grid key='2' item>
-                              <CardStr name={'Food'} cardImg={food} st={classes.paper} />
+                              <CardStr userIn={this.props.userIn} name={'Food'} cardImg={food} st={classes.paper} />
                     </Grid>
               </Grid>
 
               <Grid container className={classes} justify="center" spacing={Number(spacing)}>
                     <Grid key='3' item>
-                        <CardStr name={'Shopping'} cardImg={shopping} st={classes.paper} />
+                        <CardStr userIn={this.props.userIn} name={'Shopping'} cardImg={shopping} st={classes.paper} />
                     </Grid>
                     <Grid key='4' item>
-                        <CardStr name={'Utilities'} cardImg={utilities} st={classes.paper} />
+                        <CardStr userIn={this.props.userIn} name={'Utilities'} cardImg={utilities} st={classes.paper} />
                     </Grid>
                     <Grid key='5' item>
-                        <CardStr name={'Misc'} cardImg={misc} st={classes.paper} />
+                        <CardStr userIn={this.props.userIn} name={'Misc'} cardImg={misc} st={classes.paper} />
                     </Grid>
               </Grid>
           </Grid>

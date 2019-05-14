@@ -11,7 +11,7 @@ class Dashboard extends Component {
           console.log(user);
           return(
                <div>
-                    <GridContainer />
+                    <GridContainer userIn={user} />
                </div>
           );
      }
