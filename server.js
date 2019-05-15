@@ -23,7 +23,8 @@ if (process.env.NODE_ENV === "production") {
 const db = process.env.MONGODB_URI || "mongodb://localhost/bet";
 
 // Connect to MongoDB
-mongoose.connect(db, {useNewUrlParser: true}).then(() => console.log("MongoDB succesfully connected")).catch(err => console.log(err));
+mongoose.connect(db, {useNewUrlParser: true }).then(() => console.log("MongoDB succesfully connected")).catch(err => console.log(err));
+
 
 //Passport middleware
 app.use(passport.initialize())

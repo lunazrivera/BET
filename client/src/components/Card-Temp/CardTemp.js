@@ -3,7 +3,7 @@ import TableStr from './../TableTemp/TableTemp'
 import {withStyles, Typography, Modal, LinearProgress, Button, CardHeader, Paper} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-
+// import PropTypes from 'prop-types';
 
 const styles = theme => ({
      card: {
@@ -68,12 +68,14 @@ class CardStructure extends Component {
                open: false,
                budget: null,
                expenses: null,
+               errors: {},
           };
           this.handleToggle = this.handleToggle.bind(this);
           this.handleOpen = this.handleOpen.bind(this);
           this.handleClose = this.handleClose.bind(this);
           this.handleSubmit = this.handleSubmit.bind(this);
      };
+
      //This is the function that toggles which side of the card to render.
      handleToggle() {
           this.setState({toggle: !this.state.toggle});
@@ -87,28 +89,35 @@ class CardStructure extends Component {
           this.setState({open: false});
      }
 
-     handleChange = name => event => {
-          this.setState({
-            [event.target.id]: event.target.value,
-          });
-     };
+     onChange = e => {
+          this.setState({ 
+               [e.target.id]: e.target.value
+          })
+     }
 
      handleSubmit(event) {
           event.preventDefault();
-          alert('Amount was submitted: ' + this.state.budget);
           let newBudget = {
                userId: this.props.userIn.id,
                category: this.props.name,
                value: this.state.budget
           };
-
+          this.setState({ 'budget': '' })
           this.saveBudget(newBudget);
           
      };
 
      saveBudget =(object) => {
+          console.log('Inside save budget')
           console.log(object);
-          axios.post("/api/budgets/set-budget", object).then((response) => { console.log(response)}).catch(err => console.log(err));
+          axios.post("/api/budgets/set-budget", object).then((response) => {
+               console.log('Expecting response below') 
+               console.log(response) 
+               console.log(response.data.value)
+               if (response.data.value) {
+                    this.setState({ errors: response.data })
+               }
+               }).catch(err => console.log(err));
      };
 
      render() {
@@ -146,17 +155,18 @@ class CardStructure extends Component {
                                    <Typography variant="h6" id="modal-title">
                                         Set Your Budget for {this.props.name}!
                                    </Typography>
+                                   
                                    <form onSubmit={this.handleSubmit}>
                                    <TextField
                                         id="budget"
                                         label="$"
                                         className={classes.textField}
-                                        onChange={this.handleChange('name')}
+                                        onChange={this.onChange}
                                         value={this.state.name}
                                         margin="normal"
                                         variant="outlined"
                                    />
-
+                                   <Typography style={{ color: 'red' }}>{typeof this.state.errors.value === typeof '' ? this.state.errors.value : '' }</Typography>
                                    <div>
                                    <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
                                    Submit

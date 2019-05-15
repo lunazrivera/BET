@@ -92,8 +92,8 @@ class Navbar extends Component {
                               </Typography>
                          </div>
                          <div className={classes.rightAlign}>
-                              <IconButton >
-                                   <MenuIcon aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true" className={classes.grow}onClick={this.handleClick}/>
+                              <IconButton onClick={this.handleClick}>
+                                   <MenuIcon aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true" className={classes.grow}/>
                               </IconButton>
                          </div>
                          <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>

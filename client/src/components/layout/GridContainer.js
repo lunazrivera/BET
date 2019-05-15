@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { withStyles, Grid} from '@material-ui/core';
 import CardStr from './../Card-Temp/CardTemp';
 
@@ -50,7 +50,7 @@ render() {
       <main className={classes.mainSpacing}>
     <Grid container className={classes.root} spacing={24}>
           <Grid item xs={12}>
-              <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+              <Grid container justify="center" spacing={Number(spacing)}>
                     <Grid key='0' item>
                               <CardStr userIn={this.props.userIn} name={'Car'} cardImg={car} st={classes.paper} /> 
                     </Grid>
@@ -62,7 +62,7 @@ render() {
                     </Grid>
               </Grid>
 
-              <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+              <Grid container justify="center" spacing={Number(spacing)}>
                     <Grid key='3' item>
                         <CardStr userIn={this.props.userIn} name={'Shopping'} cardImg={shopping} st={classes.paper} />
                     </Grid>
@@ -83,10 +83,7 @@ render() {
 };
 
 
-//// name.propTypes
-Main.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+
 
 
 //// Export Default
