@@ -76,8 +76,7 @@ class Navbar extends Component {
           const {classes} = this.props
 
           if (this.props.auth.isAuthenticated) {
-               console.log('this is authenticated nav')
-               console.log(this.props);
+               
           return (
                <AppBar position="static" className={classes.navBar}>
 

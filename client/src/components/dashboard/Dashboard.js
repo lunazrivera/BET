@@ -5,10 +5,9 @@ import GridContainer from "./../layout/GridContainer"
 
 class Dashboard extends Component {
      render() {
-          console.log(this.props.auth);
+
           const {user} = this.props.auth;
-          console.log("coming from dashboard");
-          console.log(user);
+
           return(
                <div>
                     <GridContainer userIn={user} />

@@ -66,7 +66,7 @@ class CardStructure extends Component {
           this.state = {
                toggle: false,
                open: false,
-               budget: null,
+               budget: 0,
                expenses: null,
                errors: {},
           };
@@ -90,6 +90,7 @@ class CardStructure extends Component {
      }
 
      onChange = e => {
+          
           this.setState({ 
                [e.target.id]: e.target.value
           })
@@ -102,18 +103,13 @@ class CardStructure extends Component {
                category: this.props.name,
                value: this.state.budget
           };
-          this.setState({ 'budget': '' })
           this.saveBudget(newBudget);
+          this.setState({ budget: "" })
           
      };
 
      saveBudget =(object) => {
-          console.log('Inside save budget')
-          console.log(object);
           axios.post("/api/budgets/set-budget", object).then((response) => {
-               console.log('Expecting response below') 
-               console.log(response) 
-               console.log(response.data.value)
                if (response.data.value) {
                     this.setState({ errors: response.data })
                }
@@ -156,13 +152,13 @@ class CardStructure extends Component {
                                         Set Your Budget for {this.props.name}!
                                    </Typography>
                                    
-                                   <form onSubmit={this.handleSubmit}>
+                                   <form bgt="budget" onSubmit={this.handleSubmit}>
                                    <TextField
                                         id="budget"
                                         label="$"
                                         className={classes.textField}
                                         onChange={this.onChange}
-                                        value={this.state.name}
+                                        value={this.state.budget}
                                         margin="normal"
                                         variant="outlined"
                                    />
