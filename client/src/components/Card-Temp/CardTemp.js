@@ -34,7 +34,7 @@ const styles = theme => ({
      },
      imgContainer: {
           textAlign: 'center',
-          
+
      },
      paper: {
           position: 'absolute',
@@ -190,23 +190,27 @@ class CardStructure extends Component {
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
                               <div style={getModalStyle()} className={classes.paper}>
-                                   <Typography variant="h6" id="modal-title">
+                                   <Typography variant="h6" id="modal-title" justify='center' align='center'>
                                         Set Your Budget for {this.props.name}!
                                    </Typography>
                                    
                                    <form bgt="budget" onSubmit={this.handleSubmit}>
-                                   <TextField
-                                        id="budget"
-                                        label="$"
-                                        className={classes.textField}
-                                        onChange={this.onChange}
-                                        value={this.state.budget}
-                                        margin="normal"
-                                        variant="outlined"
-                                   />
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                             <div>
+                                                  <TextField
+                                                       id="budget"
+                                                       label="$"
+                                                       className={classes.textField}
+                                                       onChange={this.onChange}
+                                                       value={this.state.budget}
+                                                       margin="normal"
+                                                       variant="outlined"
+                                                  />
+                                             </div>
+                                        </div>
                                    
-                                   <div>
-                                   <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+                                   <div align='center'>
+                                   <Button variant="contained" type="submit" color='secondary' className={classes.button}>
                                    Submit
                                    </Button>
                                    </div>
