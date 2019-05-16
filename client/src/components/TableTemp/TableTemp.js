@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -140,8 +141,8 @@ const toolbarStyles = theme => ({
   },
 });
 
-let EnhancedTableToolbar = props => {
-  const { numSelected, name, classes } = props;
+let EnhancedTableToolbar = (props) => {
+  const { numSelected, name, classes, onOpen, paper, modalState, onClose } = props;
 
   return (
     <Toolbar
@@ -170,14 +171,39 @@ let EnhancedTableToolbar = props => {
           </Tooltip>
         ) : (
           <Tooltip title="Add Transaction">
-            <IconButton aria-label="Add Transaction">
+            <IconButton aria-label="Add Transaction" onClick={onOpen}>
             <Icon className={classes.icon}  style={{fontSize: 30}}color="secondary">
                     add_circle
-          </Icon>
+            </Icon>
             </IconButton>
           </Tooltip>
         )}
       </div>
+
+      <Modal open={modalState} onClose={onClose}>
+        <div style={{top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`,}} className={paper}>
+            <Typography variant="h6" id="modal-title">
+                  Create a new expense
+            </Typography>
+                                  
+            {/* <form bgt="budget" onSubmit={this.handleSubmit}>
+              <TextField
+                id="budget"
+                label="$"
+                className={classes.textField}
+                onChange={this.onChange}
+                value={this.state.budget}
+                margin="normal"
+                variant="outlined"
+              />
+              <div>
+                <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+                Submit
+                </Button>
+              </div>
+            </form> */}
+        </div>
+      </Modal>
     </Toolbar>
   );
 };
@@ -200,21 +226,37 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+},
 });
 
 class ExpenseTable extends React.Component {
-  state = {
-    order: 'asc',
-    orderBy: 'date',
-    selected: [],
-    data: [
-      createData('date', 'hold door', 20),
-      createData('date', 'hol dor', 60),
-      createData('date', 'hodor', 80),
-    ],
-    page: 0,
-    rowsPerPage: 5,
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      order: 'asc',
+      orderBy: 'date',
+      selected: [],
+      data: [
+        createData('date', 'hold door', 20),
+        createData('date', 'hol dor', 60),
+        createData('date', 'hodor', 80),
+      ],
+      page: 0,
+      rowsPerPage: 5,
+      open: false,
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   };
+
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -264,6 +306,13 @@ class ExpenseTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  handleOpen() {
+    this.setState({open: true});
+  };
+  handleClose() {
+    this.setState({open: false});
+  };
+
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
@@ -273,7 +322,7 @@ class ExpenseTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} name={this.props.name} />
+        <EnhancedTableToolbar numSelected={selected.length} name={this.props.name} onClose={this.handleClose}  modalState={this.state.open} onOpen={this.handleOpen} paper={classes.paper} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -283,6 +332,7 @@ class ExpenseTable extends React.Component {
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
+              
             />
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))

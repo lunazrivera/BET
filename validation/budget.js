@@ -6,8 +6,9 @@ module.exports = function validateBudgetInput(data) {
 
      //Convert empty fields to an empty string so we can use validator
      //functions
-
+     
      data.value = !isEmpty(data.value) ? data.value : "";
+     console.log(data.value, 'in validate budget')
 
      //Value verification
 
@@ -17,7 +18,6 @@ module.exports = function validateBudgetInput(data) {
      if (!Validator.isInt(data.value)) {
           errors.value = "Amount must be a number"
      }
-
      return {
           errors,
           isValid: isEmpty(errors)

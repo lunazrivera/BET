@@ -64,38 +64,48 @@ class CardStructure extends Component {
      constructor(props) {
           super(props);
           this.state = {
+               totalBudget: 0,
                toggle: false,
                open: false,
                budget: 0,
-               expenses: null,
+               expenses: [],
                errors: {},
           };
           this.handleToggle = this.handleToggle.bind(this);
           this.handleOpen = this.handleOpen.bind(this);
           this.handleClose = this.handleClose.bind(this);
           this.handleSubmit = this.handleSubmit.bind(this);
+          this.onChange = this.onChange.bind(this);
+          this.getTotalBudget = this.getTotalBudget.bind(this);
+     };
+
+     //This are our lifecycle functions
+     componentDidMount() {
+          this.getTotalBudget();
      };
 
      //This is the function that toggles which side of the card to render.
      handleToggle() {
           this.setState({toggle: !this.state.toggle});
-     }
+     };
+     
+
      //This are the function that open and closes our modals.
      handleOpen() {
           this.setState({open: true});
-     }
-
+     };
      handleClose() {
           this.setState({open: false});
-     }
+     };
 
+     //this is our input handling function
      onChange = e => {
-          
           this.setState({ 
                [e.target.id]: e.target.value
           })
-     }
+     };
 
+     //This function handles the submit in the modal of budget
      handleSubmit(event) {
           event.preventDefault();
           let newBudget = {
@@ -108,13 +118,40 @@ class CardStructure extends Component {
           
      };
 
+     //This is our functions to retrieve, save budget
+     getTotalBudget = () =>  {
+          axios.get(`/api/budgets/get-budget/${this.props.userIn.id}/${this.props.name}`).then((response) => {
+               console.log(response);
+               if (response.data) {
+                    this.setState({totalBudget: response.data.value})
+               }
+               
+          }).catch(err => console.log(err));
+     };
      saveBudget =(object) => {
           axios.post("/api/budgets/set-budget", object).then((response) => {
-               if (response.data.value) {
-                    this.setState({ errors: response.data })
-               }
-               }).catch(err => console.log(err));
+               console.log(response)
+               this.setState({totalBudget: response.data.value})
+               this.handleClose();
+          })
      };
+
+     //This is our expenses functions
+     createExpenses = (userId, category, value, date, description) => {
+          let newExpense = {
+               userId,
+               category,
+               value,
+               date,
+               description
+          }
+
+          axios.post("/api/expenses/create-expense", newExpense).then(
+               (response) => {
+                    console.log(response);
+                    
+               });
+     }
 
      render() {
 
@@ -125,10 +162,10 @@ class CardStructure extends Component {
                     <Paper className={this.props.st}>
                          <div className={classes.container2}>
                               <div className={classes.imgContainer}>
-                                   <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} alt=''/>
+                                   <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} createExpenses={this.createExpenses} alt="card-logo" />
                               </div>
                          </div>
-                              <TableStr name={this.props.name} />
+                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} />
                     </Paper>
                );
           } else {
@@ -143,7 +180,7 @@ class CardStructure extends Component {
                          </div>
 
                          <div className={classes.imgContainer}>
-                              <LinearProgress color='secondary' style={{background: 'green'}} variant='determinate'  value={30} />
+                              <LinearProgress color='secondary' style={ +this.state.totalBudget ? {background: 'green'} : {display: 'hidden'} } variant='determinate'  value={0} />
                          </div>
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
@@ -162,15 +199,13 @@ class CardStructure extends Component {
                                         margin="normal"
                                         variant="outlined"
                                    />
-                                   <Typography style={{ color: 'red' }}>{typeof this.state.errors.value === typeof '' ? this.state.errors.value : '' }</Typography>
+                                   
                                    <div>
                                    <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
                                    Submit
                                    </Button>
                                    </div>
                                    </form>
-                              {/* Import SubmitButton <SubmitButton /> */}
-                                   {/* <SubmitButton /> */}
                               </div>
                          </Modal>
                          
