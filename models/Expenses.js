@@ -15,12 +15,12 @@ const ExpensesSchema = new Schema ({
           required: true
      },
      date: {
-        type: Date,
-        default: Date.now
+          type: Date,
+          default: Date.now
      },
      description: {
-         type: String,
-         required: true
+          type: String,
+          required: true
      }
 });
 
