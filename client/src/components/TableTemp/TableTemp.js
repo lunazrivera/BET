@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import {TextField, Button} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,11 +24,11 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 
 /// Sort and Selecting 
-let counter = 0;
-function createData(date, description, amount) {
-  counter += 1;
-  return { id: counter, date, description, amount };
-}
+// let counter = 0;
+// function createData(date, description, amount) {
+//   counter += 1;
+//   return { id: counter, date, description, amount };
+// }
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -142,7 +143,17 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = (props) => {
-  const { numSelected, name, classes, onOpen, paper, modalState, onClose } = props;
+  const { numSelected, 
+          categoryName, 
+          classes, 
+          onOpen, 
+          paper, 
+          modalState, 
+          onClose, 
+          onInputs, 
+          description, 
+          date, 
+          amount } = props;
 
   return (
     <Toolbar
@@ -157,7 +168,7 @@ let EnhancedTableToolbar = (props) => {
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            {name} Expenses
+            {categoryName} Expenses
           </Typography>
         )}
       </div>
@@ -172,20 +183,57 @@ let EnhancedTableToolbar = (props) => {
         ) : (
           <Tooltip title="Add Transaction">
             <IconButton aria-label="Add Transaction" onClick={onOpen}>
-            <Icon className={classes.icon}  style={{fontSize: 30}}color="secondary">
-                    add_circle
-            </Icon>
+              <Icon className={classes.icon}  style={{fontSize: 30}}color="secondary">
+                      add_circle
+              </Icon>
             </IconButton>
           </Tooltip>
         )}
       </div>
 
       <Modal open={modalState} onClose={onClose}>
-        <div style={{top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`,}} className={paper}>
-            <Typography variant="h6" id="modal-title">
-                  Create a new expense
+        <div style={{top: `50%`, left: `50%`, transform: `translate(-50%, -50%)`, borderRadius: '10px' }} className={paper}>
+            <Typography variant="h6" id="modal-title" align="center">
+              Create expense for {categoryName}!
             </Typography>
-                                  
+
+            <form>
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{display:'flex', flexDirection: 'column', border: 'solid 1px rgba(0,0,0,0.1', borderRadius: '7px', padding: '10px', width: '100%'}}>
+                  <TextField
+                    id="description"
+                    label="Description"
+                    value={description}
+                    className={classes.textField}
+                    onChange={onInputs}
+                    helperText="Add some description"
+                    margin="normal"
+                    />
+                  <TextField
+                    id="date"
+                    label="Date"
+                    type="date"
+                    defaultValue="2019-00-00"
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <TextField
+                    id="amount"
+                    label="Amount"
+                    value={amount}
+                    onChange={onInputs}
+                    helperText="Add some description"
+                    margin="normal"
+                    />
+                    <Button variant="contained" type="submit" color='secondary' >
+                    Submit
+                    </Button>
+                </div>
+              </div>
+                
+            </form>
             {/* <form bgt="budget" onSubmit={this.handleSubmit}>
               <TextField
                 id="budget"
@@ -244,17 +292,17 @@ class ExpenseTable extends React.Component {
       order: 'asc',
       orderBy: 'date',
       selected: [],
-      data: [
-        createData('date', 'hold door', 20),
-        createData('date', 'hol dor', 60),
-        createData('date', 'hodor', 80),
-      ],
+      data: this.props.expensesArray,
       page: 0,
       rowsPerPage: 5,
       open: false,
+      description: '',
+      date: '',
+      amount: 0,
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleInputs = this.handleInputs.bind(this);
   };
 
 
@@ -313,6 +361,10 @@ class ExpenseTable extends React.Component {
     this.setState({open: false});
   };
 
+  handleInputs(event) {
+    this.setState({[event.target.id]: event.target.value});
+  };
+
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
@@ -322,7 +374,17 @@ class ExpenseTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} name={this.props.name} onClose={this.handleClose}  modalState={this.state.open} onOpen={this.handleOpen} paper={classes.paper} />
+        <EnhancedTableToolbar 
+          numSelected={selected.length} 
+          categoryName={this.props.categoryName} 
+          onClose={this.handleClose}  
+          modalState={this.state.open} 
+          onOpen={this.handleOpen} 
+          paper={classes.paper}
+          description={this.state.description}
+          date={this.state.date}
+          amount={this.state.amount}
+          onInputs={this.handleInputs} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -349,14 +411,12 @@ class ExpenseTable extends React.Component {
                       key={n.id}
                       selected={isSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row" padding="none">
-                        {n.date}
-                      </TableCell>
-                      <TableCell align="right">{n.description}</TableCell>
-                      <TableCell align="right">{n.amount}</TableCell>
+                        <TableCell padding="checkbox">
+                          <Checkbox checked={isSelected} />
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row" padding="none">{n.date}</TableCell>
+                        <TableCell align="right">{n.description}</TableCell>
+                        <TableCell align="right">{n.amount}</TableCell>
                     </TableRow>
                   );
                 })}

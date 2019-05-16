@@ -58,6 +58,7 @@ function getModalStyle() {
           top: `${top}%`,
           left: `${left}%`,
           transform: `translate(-${top}%, -${left}%)`,
+          borderRadius: '10px'
      };
 }
 
@@ -69,13 +70,15 @@ class CardStructure extends Component {
                toggle: false,
                open: false,
                budget: 0,
-               expenses: [],
+               expenses: [
+                    {id:1, date: '2/5/2019', description: 'Water', amount: 700}
+               ],
                errors: {},
           };
           this.handleToggle = this.handleToggle.bind(this);
           this.handleOpen = this.handleOpen.bind(this);
           this.handleClose = this.handleClose.bind(this);
-          this.handleSubmit = this.handleSubmit.bind(this);
+          this.handleSubmitBudget = this.handleSubmitBudget.bind(this);
           this.onChange = this.onChange.bind(this);
           this.getTotalBudget = this.getTotalBudget.bind(this);
      };
@@ -107,7 +110,7 @@ class CardStructure extends Component {
      };
 
      //This function handles the submit in the modal of budget
-     handleSubmit(event) {
+     handleSubmitBudget(event) {
           event.preventDefault();
           let newBudget = {
                userId: this.props.userIn.id,
@@ -181,11 +184,11 @@ class CardStructure extends Component {
                          </div>
 
                          <div className={classes.imgContainer}>
-
-                              <LinearProgress color='secondary' style={ +this.state.totalBudget ? {background: 'green', transform: 'scaleY(6)',
-                              transformOrigin: 'bottom', } : {display: 'hidden'} } variant='determinate'  value={0} />
-
-
+                              <LinearProgress 
+                                   color='secondary'
+                                   style={ +this.state.totalBudget ? {background: 'green', transform: 'scaleY(6)', transformOrigin: 'bottom', } : {display: 'hidden'} } 
+                                   variant='determinate'  value={0} 
+                              />
                          </div>
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
@@ -193,23 +196,21 @@ class CardStructure extends Component {
                                    <Typography variant="h6" id="modal-title">
                                         Set Your Budget for {this.props.name}!
                                    </Typography>
-                                   
-                                   <form bgt="budget" onSubmit={this.handleSubmit}>
-                                   <TextField
-                                        id="budget"
-                                        label="$"
-                                        className={classes.textField}
-                                        onChange={this.onChange}
-                                        value={this.state.budget}
-                                        margin="normal"
-                                        variant="outlined"
-                                   />
-                                   
-                                   <div>
-                                   <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
-                                   Submit
-                                   </Button>
-                                   </div>
+                                   <form onSubmit={this.handleSubmitBudget}>
+                                        <TextField
+                                             id="budget"
+                                             label="$"
+                                             className={classes.textField}
+                                             onChange={this.onChange}
+                                             value={this.state.budget}
+                                             margin="normal"
+                                             variant="outlined"
+                                        />
+                                        <div>
+                                             <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+                                                  Submit
+                                             </Button>
+                                        </div>
                                    </form>
                               </div>
                          </Modal>
