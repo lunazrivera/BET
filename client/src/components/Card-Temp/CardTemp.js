@@ -33,7 +33,8 @@ const styles = theme => ({
           justifyContent: 'center',
      },
      imgContainer: {
-          textAlign: 'center'
+          textAlign: 'center',
+          
      },
      paper: {
           position: 'absolute',
@@ -180,7 +181,11 @@ class CardStructure extends Component {
                          </div>
 
                          <div className={classes.imgContainer}>
-                              <LinearProgress color='secondary' style={ +this.state.totalBudget ? {background: 'green'} : {display: 'hidden'} } variant='determinate'  value={0} />
+
+                              <LinearProgress color='secondary' style={ +this.state.totalBudget ? {background: 'green', transform: 'scaleY(6)',
+                              transformOrigin: 'bottom', } : {display: 'hidden'} } variant='determinate'  value={0} />
+
+
                          </div>
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
