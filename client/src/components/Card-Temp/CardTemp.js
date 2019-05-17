@@ -34,7 +34,7 @@ const styles = theme => ({
      },
      imgContainer: {
           textAlign: 'center',
-          
+
      },
      paper: {
           position: 'absolute',
@@ -192,6 +192,7 @@ class CardStructure extends Component {
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
                               <div style={getModalStyle()} className={classes.paper}>
+<<<<<<< HEAD
                                    <div className={classes.container} style={{marginBottom: '6px'}}>
                                         <div className={classes.imgContainer}>
                                              <img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/>
@@ -210,6 +211,44 @@ class CardStructure extends Component {
                                              />
 
                                              <Button variant="contained" type="submit" color='secondary'   className={classes.button}>
+=======
+                                   <Typography variant="h6" id="modal-title" justify='center' align='center'>
+                                        Set Your Budget for {this.props.name}!
+                                   </Typography>
+                                   
+                                   <form bgt="budget" onSubmit={this.handleSubmit}>
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                             <div>
+                                                  <TextField
+                                                       id="budget"
+                                                       label="$"
+                                                       className={classes.textField}
+                                                       onChange={this.onChange}
+                                                       value={this.state.budget}
+                                                       margin="normal"
+                                                       variant="outlined"
+                                                  />
+                                             </div>
+                                        </div>
+                                   
+                                   <div align='center'>
+                                   <Button variant="contained" type="submit" color='secondary' className={classes.button}>
+                                   Submit
+                                   </Button>
+                                   </div>
+                                   <form onSubmit={this.handleSubmitBudget}>
+                                        <TextField
+                                             id="budget"
+                                             label="$"
+                                             className={classes.textField}
+                                             onChange={this.onChange}
+                                             value={this.state.budget}
+                                             margin="normal"
+                                             variant="outlined"
+                                        />
+                                        <div>
+                                             <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+>>>>>>> f5ec3958e1e1113a549620d646493a63cca71069
                                                   Submit
                                              </Button>
                                         </FormControl>
