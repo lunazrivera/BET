@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TableStr from './../TableTemp/TableTemp'
-import {withStyles, Typography, Modal, LinearProgress, Button, CardHeader, Paper} from "@material-ui/core";
-import TextField from '@material-ui/core/TextField';
+import {withStyles, Modal, LinearProgress, Button, CardHeader, Paper, Input, InputLabel,InputAdornment, FormControl} from "@material-ui/core";
+// import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
 
@@ -70,9 +70,7 @@ class CardStructure extends Component {
                toggle: false,
                open: false,
                budget: 0,
-               expenses: [
-                    {id:1, date: '2/5/2019', description: 'Water', amount: 700}
-               ],
+               expenses: [],
                errors: {},
           };
           this.handleToggle = this.handleToggle.bind(this);
@@ -134,26 +132,27 @@ class CardStructure extends Component {
      };
      saveBudget =(object) => {
           axios.post("/api/budgets/set-budget", object).then((response) => {
-               console.log(response)
-               this.setState({totalBudget: response.data.value})
+               console.log(response);
+               this.setState({totalBudget: response.data.value});
+
                this.handleClose();
           })
      };
 
      //This is our expenses functions
-     createExpenses = (userId, category, value, date, description) => {
-          let newExpense = {
-               userId,
-               category,
-               value,
-               date,
-               description
-          }
-
-          axios.post("/api/expenses/create-expense", newExpense).then(
+     createExpenses = (expenseObject) => {
+          console.log(expenseObject);
+          alert("Your in create expenses from CardTemp Great Job!")
+          axios.post("/api/expenses/create-expense", expenseObject).then(
                (response) => {
                     console.log(response);
-                    
+                    this.setState(state => {
+                         const expenses = state.expenses.concat(response.data);
+                         return {
+                              expenses
+                         }
+                         
+                    })
                });
      }
 
@@ -166,10 +165,10 @@ class CardStructure extends Component {
                     <Paper className={this.props.st}>
                          <div className={classes.container2}>
                               <div className={classes.imgContainer}>
-                                   <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} createExpenses={this.createExpenses} alt="card-logo" />
+                                   <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} alt="card-logo" />
                               </div>
                          </div>
-                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} />
+                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} createExpenses={this.createExpenses}  />
                     </Paper>
                );
           } else {
@@ -193,24 +192,27 @@ class CardStructure extends Component {
                          
                          <Modal open={this.state.open} onClose={this.handleClose}>
                               <div style={getModalStyle()} className={classes.paper}>
-                                   <Typography variant="h6" id="modal-title">
-                                        Set Your Budget for {this.props.name}!
-                                   </Typography>
-                                   <form onSubmit={this.handleSubmitBudget}>
-                                        <TextField
-                                             id="budget"
-                                             label="$"
-                                             className={classes.textField}
-                                             onChange={this.onChange}
-                                             value={this.state.budget}
-                                             margin="normal"
-                                             variant="outlined"
-                                        />
-                                        <div>
-                                             <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
+                                   <div className={classes.container} style={{marginBottom: '6px'}}>
+                                        <div className={classes.imgContainer}>
+                                             <img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/>
+                                        </div>
+                                   </div>
+                                   <form onSubmit={this.handleSubmitBudget} style={{display: 'flex', justifyContent: 'center'}}>
+                                        <FormControl fullWidth>
+                                             <InputLabel htmlFor='budget'>Set A Budget Amount For {this.props.name}</InputLabel>
+                                             <Input
+                                                  id="budget"
+                                                  className={classes.textField}
+                                                  onChange={this.onChange}
+                                                  value={this.state.budget}
+                                                  startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+                                                  style={{marginBottom: '6px'}}
+                                             />
+
+                                             <Button variant="contained" type="submit" color='secondary'   className={classes.button}>
                                                   Submit
                                              </Button>
-                                        </div>
+                                        </FormControl>
                                    </form>
                               </div>
                          </Modal>

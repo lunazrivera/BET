@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, InputAdornment, Input, InputLabel} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -152,7 +152,8 @@ let EnhancedTableToolbar = (props) => {
           onClose, 
           onInputs, 
           description, 
-          date, 
+          date,
+          submit,
           amount } = props;
 
   return (
@@ -197,10 +198,11 @@ let EnhancedTableToolbar = (props) => {
               Create expense for {categoryName}!
             </Typography>
 
-            <form>
+            <form onSubmit={submit}>
               <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div style={{display:'flex', flexDirection: 'column', border: 'solid 1px rgba(0,0,0,0.1', borderRadius: '7px', padding: '10px', width: '100%'}}>
                   <TextField
+                    style={{marginBottom: '30px', marginTop: '0px'}}
                     id="description"
                     label="Description"
                     value={description}
@@ -210,23 +212,29 @@ let EnhancedTableToolbar = (props) => {
                     margin="normal"
                     />
                   <TextField
+                    style={{marginBottom: '30px', marginTop: '0px'}}
                     id="date"
                     label="Date"
                     type="date"
-                    defaultValue="2019-00-00"
+                    value={date}
+                    onChange={onInputs}
+                    helperText="Add date of expense"
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
-                  <TextField
+                  
+                  <InputLabel htmlFor="amount">Amount</InputLabel>
+                  <Input
+                    style={{marginBottom: '30px', marginTop: '0px'}}
                     id="amount"
                     label="Amount"
                     value={amount}
                     onChange={onInputs}
-                    helperText="Add some description"
-                    margin="normal"
+                    startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                     />
+                    
                     <Button variant="contained" type="submit" color='secondary' >
                     Submit
                     </Button>
@@ -234,22 +242,6 @@ let EnhancedTableToolbar = (props) => {
               </div>
                 
             </form>
-            {/* <form bgt="budget" onSubmit={this.handleSubmit}>
-              <TextField
-                id="budget"
-                label="$"
-                className={classes.textField}
-                onChange={this.onChange}
-                value={this.state.budget}
-                margin="normal"
-                variant="outlined"
-              />
-              <div>
-                <Button variant="contained" type="submit" color='secondary'  className={classes.button}>
-                Submit
-                </Button>
-              </div>
-            </form> */}
         </div>
       </Modal>
     </Toolbar>
@@ -303,7 +295,9 @@ class ExpenseTable extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
+    this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
   };
+
 
 
   handleRequestSort = (event, property) => {
@@ -361,6 +355,22 @@ class ExpenseTable extends React.Component {
     this.setState({open: false});
   };
 
+
+  handleExpenseSubmit(event) {
+    event.preventDefault()
+    let newExpense = {
+      userId: this.props.userIn.id,
+      category: this.props.categoryName,
+      value: this.state.amount,
+      date: this.state.date,
+      description:this.state.description
+    }
+
+    this.props.createExpenses(newExpense)
+    this.setState({amount: 0, description: '', date: ''})
+    this.handleClose()
+  }
+
   handleInputs(event) {
     this.setState({[event.target.id]: event.target.value});
   };
@@ -384,7 +394,8 @@ class ExpenseTable extends React.Component {
           description={this.state.description}
           date={this.state.date}
           amount={this.state.amount}
-          onInputs={this.handleInputs} />
+          onInputs={this.handleInputs}
+          submit={this.handleExpenseSubmit} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -416,7 +427,7 @@ class ExpenseTable extends React.Component {
                         </TableCell>
                         <TableCell align="center" component="th" scope="row" padding="none">{n.date}</TableCell>
                         <TableCell align="right">{n.description}</TableCell>
-                        <TableCell align="right">{n.amount}</TableCell>
+                        <TableCell align="right">{n.value}</TableCell>
                     </TableRow>
                   );
                 })}
