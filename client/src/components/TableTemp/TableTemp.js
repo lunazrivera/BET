@@ -20,6 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Icon from '@material-ui/core/Icon';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import moment from 'moment'
 
 
 
@@ -298,8 +299,6 @@ class ExpenseTable extends React.Component {
     this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
   };
 
-
-
   handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = 'desc';
@@ -378,8 +377,8 @@ class ExpenseTable extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { classes, expensesArray: data} = this.props;
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
@@ -419,13 +418,15 @@ class ExpenseTable extends React.Component {
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={n.id}
+                      key={n._id}
                       selected={isSelected}
                     >
                         <TableCell padding="checkbox">
                           <Checkbox checked={isSelected} />
                         </TableCell>
-                        <TableCell align="center" component="th" scope="row" padding="none">{n.date}</TableCell>
+                        <TableCell align="center" component="th" scope="row" padding="none">
+                        {moment(n.date).format("MMMM DD YYYY")}
+                        </TableCell>
                         <TableCell align="right">{n.description}</TableCell>
                         <TableCell align="right">{n.value}</TableCell>
                     </TableRow>
