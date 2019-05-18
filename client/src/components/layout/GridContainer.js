@@ -4,12 +4,12 @@ import { withStyles, Grid} from '@material-ui/core';
 import CardStr from './../Card-Temp/CardTemp';
 
 //pngs for cards
-import car from './../assets/icons/electric-car.png';
-import entertainment from './../assets/icons/entertainment.png';
-import misc from './../assets/icons/folder.png';
-import food from './../assets/icons/restaurant.png';
-import shopping from './../assets/icons/sale.png'
-import utilities from './../assets/icons/real-estate.png'
+import car from './../assets/icons/car.jpg';
+import entertainment from './../assets/icons/entertainment.jpg';
+import misc from './../assets/icons/misc.jpg';
+import food from './../assets/icons/food.jpg';
+import shopping from './../assets/icons/shopping.jpg'
+import utilities from './../assets/icons/house.jpg'
 
 
 
@@ -50,7 +50,7 @@ render() {
       <main className={classes.mainSpacing}>
     <Grid container className={classes.root} spacing={24}>
           <Grid item xs={12}>
-              <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+              <Grid container  justify="center" spacing={Number(spacing)}>
                     <Grid key='0' item>
                               <CardStr name={'Car'} cardImg={car} st={classes.paper} /> 
                     </Grid>
@@ -61,8 +61,9 @@ render() {
                               <CardStr name={'Food'} cardImg={food} st={classes.paper} />
                     </Grid>
               </Grid>
-
-              <Grid container className={classes} justify="center" spacing={Number(spacing)}>
+<br></br>
+<br></br>
+              <Grid container  justify="center" spacing={Number(spacing)}>
                     <Grid key='3' item>
                         <CardStr name={'Shopping'} cardImg={shopping} st={classes.paper} />
                     </Grid>
