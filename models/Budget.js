@@ -17,6 +17,9 @@ const BudgetSchema = new Schema ({
      date: {
           type: Date,
           default: Date.now
+     },
+     cardTotal: {
+          type: Number,
      }
 });
 

@@ -359,9 +359,15 @@ class ExpenseTable extends React.Component {
 
   handleExpenseDeletion() {
     let selected = this.state.selected;
-    
+    console.log();
+    console.log("Coming from handleExpenseDeletion function in TableTemp");
+    console.log(selected);
     axios.post("/api/expenses/delete-expenses", selected).then((response) => {
+      console.log();
+      console.log("Coming from axios post inside handleExpenseDeletion");
+      console.log(response);
       this.props.getExpenses()
+      this.props.deletedData(selected)
       this.setState({selected: []})
     }).catch(err => {console.log(err)})
   }
@@ -386,7 +392,6 @@ class ExpenseTable extends React.Component {
   };
 
   isSelected = id => {
-    console.log(id);
     return this.state.selected.indexOf(id) !== -1};
 
   render() {

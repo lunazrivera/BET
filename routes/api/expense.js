@@ -22,6 +22,16 @@ router.post("/create-expense", (req, res) => {
 
 });
 
+router.post("/get-value", (req, res) => {
+  console.log();
+  console.log("Coming from get-value");
+  console.log(req.body)
+  Expense.find({_id: { $in: req.body }}, function(err, data) {
+    console.log(data);
+    res.json(data);
+  })
+})
+
 router.get("/get-expenses/:id/:category/", (req, res) => {
   Expense.find({userId: req.params.id, category: req.params.category, softDelete: false}, function(err, data) {
     res.json(data);
