@@ -362,6 +362,7 @@ class ExpenseTable extends React.Component {
     
     axios.post("/api/expenses/delete-expenses", selected).then((response) => {
       this.props.getExpenses()
+      this.setState({selected: []})
     }).catch(err => {console.log(err)})
   }
 
@@ -384,7 +385,9 @@ class ExpenseTable extends React.Component {
     this.setState({[event.target.id]: event.target.value});
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = id => {
+    console.log(id);
+    return this.state.selected.indexOf(id) !== -1};
 
   render() {
     const { classes, expensesArray: data} = this.props;

@@ -66,7 +66,7 @@ class CardStructure extends Component {
      constructor(props) {
           super(props);
           this.state = {
-               cardTotal: 0,
+               total: 0,
                totalBudget: 0,
                toggle: false,
                open: false,
@@ -145,6 +145,9 @@ class CardStructure extends Component {
           })
      };
 
+     getDataFromDeletedExpense = (expenseId) => {
+
+     }
 
      saveBudget =(object) => {
           axios.post("/api/budgets/set-budget", object).then((response) => {
@@ -184,6 +187,7 @@ class CardStructure extends Component {
                     </Paper>
                );
           } else {
+               // debugger;
                return(
                     <Paper className={this.props.st}>
                          <CardHeader  action={<Button variant='outlined' onClick={this.handleOpen} color='secondary'>Set Budget</Button>}>
@@ -197,7 +201,7 @@ class CardStructure extends Component {
 
                               <div style={{display: 'flex', justifyContent: 'center'}}>
                                    <div>
-                                        <span>{this.state.totalBudget > 0 ? <Typography style={{color: 'rgba(0,0,0,0.4)'}}> Budget amount: {this.state.totalBudget} </Typography> : ''}</span>
+                                        <span>{this.state.totalBudget > 0 ? <Typography style={{color: 'rgba(0,0,0,0.4)'}}> Budget amount: ${this.state.totalBudget} </Typography> : ''}</span>
                                    </div>
                               </div>
                          </div>
@@ -206,7 +210,9 @@ class CardStructure extends Component {
                               <LinearProgress 
                                    color='secondary'
                                    style={ this.state.totalBudget ? {background: 'green', transform: 'scaleY(2)', transformOrigin: 'bottom', } : {display: 'hidden'} } 
-                                   variant='determinate'  value={0} 
+                                   variant='determinate'  
+                                   value={Math.min(Math.ceil((this.state.total/this.state.totalBudget) * 100), 100)} 
+                                   
                               />
                          </div>
                          
