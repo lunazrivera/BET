@@ -21,6 +21,11 @@ const ExpensesSchema = new Schema ({
      description: {
           type: String,
           required: true
+     },
+     softDelete: {
+          type: Boolean,
+          default: false,
+          required: true,
      }
 });
 

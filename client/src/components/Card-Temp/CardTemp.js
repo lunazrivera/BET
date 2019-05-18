@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TableStr from './../TableTemp/TableTemp'
-import {withStyles, Modal, LinearProgress, Button, CardHeader, Paper, Input, InputLabel,InputAdornment, FormControl} from "@material-ui/core";
+import {withStyles,Typography, Modal, LinearProgress, Button, CardHeader, Paper, Input, InputLabel,InputAdornment, FormControl} from "@material-ui/core";
 // import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
@@ -70,7 +70,7 @@ class CardStructure extends Component {
                totalBudget: 0,
                toggle: false,
                open: false,
-               budget: 0,
+               budget: "",
                expenses: [],
                errors: {},
           };
@@ -80,11 +80,13 @@ class CardStructure extends Component {
           this.handleSubmitBudget = this.handleSubmitBudget.bind(this);
           this.onChange = this.onChange.bind(this);
           this.getTotalBudget = this.getTotalBudget.bind(this);
+          this.getExpenses = this.getExpenses.bind(this);
      };
 
      //This are our lifecycle functions
      componentDidMount() {
           this.getTotalBudget();
+          this.getExpenses("Running component DID MOUNT")
      };
 
      //This is the function that toggles which side of the card to render.
@@ -114,40 +116,48 @@ class CardStructure extends Component {
           let newBudget = {
                userId: this.props.userIn.id,
                category: this.props.name,
-               value: this.state.budget
+               value: parseFloat(this.state.budget)
           };
           this.saveBudget(newBudget);
-          this.setState({ budget: "" })
+          this.setState({ budget: '' });
           
      };
 
-     //This is our functions to retrieve, save budget
+     //This is our functions to retrieve, saved budget and  saved expenses
      getTotalBudget = () =>  {
           axios.get(`/api/budgets/get-budget/${this.props.userIn.id}/${this.props.name}`).then((response) => {
-               console.log(response);
                if (response.data) {
                     this.setState({totalBudget: response.data.value})
                }
                
           }).catch(err => console.log(err));
      };
+     getExpenses = (message) => {
+          this.setState({expenses: []});
+          axios.get(`/api/expenses/get-expenses/${this.props.userIn.id}/${this.props.name}`).then((response) => {
+               if(response.data) {
+                    const expenses = this.state.expenses.concat(response.data);
+                    this.setState({
+                         expenses,
+                    })
+                    console.log(this.state.expenses)
+               }
+          })
+     };
+
+
      saveBudget =(object) => {
           axios.post("/api/budgets/set-budget", object).then((response) => {
                console.log(response);
                this.setState({totalBudget: response.data.value});
-
                this.handleClose();
           })
      };
 
      //This is our expenses functions
      createExpenses = (expenseObject) => {
-          console.log(expenseObject);
-          alert("Your in create expenses from CardTemp Great Job!")
           axios.post("/api/expenses/create-expense", expenseObject).then(
                (response) => {
-                    console.log(response);
-                    // debugger;
                     const total = this.state.expenses.concat(response.data).reduce((prior, ex) => ex.value + prior, 0);
                     const expenses = this.state.expenses.concat(response.data);
                     console.log(total);
@@ -170,24 +180,32 @@ class CardStructure extends Component {
                                    <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} alt="card-logo" />
                               </div>
                          </div>
-                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} createExpenses={this.createExpenses}  />
+                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} getExpenses={this.getExpenses} createExpenses={this.createExpenses}  />
                     </Paper>
                );
           } else {
                return(
                     <Paper className={this.props.st}>
-                         <CardHeader  action={<Button variant='outlined' onClick={this.handleOpen} color='secondary'>Set Budget</Button>} />
+                         <CardHeader  action={<Button variant='outlined' onClick={this.handleOpen} color='secondary'>Set Budget</Button>}>
+                         
+                         </CardHeader>
 
                          <div className={classes.container}>
                               <div className={classes.imgContainer}>
                                    <img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/>
+                              </div>
+
+                              <div style={{display: 'flex', justifyContent: 'center'}}>
+                                   <div>
+                                        <span>{this.state.totalBudget > 0 ? <Typography style={{color: 'rgba(0,0,0,0.4)'}}> Budget amount: {this.state.totalBudget} </Typography> : ''}</span>
+                                   </div>
                               </div>
                          </div>
 
                          <div className={classes.imgContainer}>
                               <LinearProgress 
                                    color='secondary'
-                                   style={ +this.state.totalBudget ? {background: 'green', transform: 'scaleY(6)', transformOrigin: 'bottom', } : {display: 'hidden'} } 
+                                   style={ this.state.totalBudget ? {background: 'green', transform: 'scaleY(2)', transformOrigin: 'bottom', } : {display: 'hidden'} } 
                                    variant='determinate'  value={0} 
                               />
                          </div>

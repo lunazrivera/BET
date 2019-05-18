@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import {TextField, Button, InputAdornment, Input, InputLabel} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
@@ -155,7 +156,8 @@ let EnhancedTableToolbar = (props) => {
           description, 
           date,
           submit,
-          amount } = props;
+          amount,
+          onDelete} = props;
 
   return (
     <Toolbar
@@ -178,8 +180,8 @@ let EnhancedTableToolbar = (props) => {
       <div className={classes.actions}>
         {numSelected > 0 ? (
           <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
-              <DeleteIcon />
+            <IconButton aria-label="Delete" onClick={onDelete}>
+              <DeleteIcon  />
             </IconButton>
           </Tooltip>
         ) : (
@@ -297,6 +299,7 @@ class ExpenseTable extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
     this.handleExpenseSubmit = this.handleExpenseSubmit.bind(this);
+    this.handleExpenseDeletion = this.handleExpenseDeletion.bind(this);
   };
 
   handleRequestSort = (event, property) => {
@@ -354,6 +357,13 @@ class ExpenseTable extends React.Component {
     this.setState({open: false});
   };
 
+  handleExpenseDeletion() {
+    let selected = this.state.selected;
+    
+    axios.post("/api/expenses/delete-expenses", selected).then((response) => {
+      this.props.getExpenses()
+    }).catch(err => {console.log(err)})
+  }
 
   handleExpenseSubmit(event) {
     event.preventDefault()
@@ -394,7 +404,9 @@ class ExpenseTable extends React.Component {
           date={this.state.date}
           amount={this.state.amount}
           onInputs={this.handleInputs}
-          submit={this.handleExpenseSubmit} />
+          submit={this.handleExpenseSubmit}
+          onDelete={this.handleExpenseDeletion} 
+          />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -410,11 +422,11 @@ class ExpenseTable extends React.Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  const isSelected = this.isSelected(n._id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, n._id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}

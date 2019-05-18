@@ -8,19 +8,12 @@ const Budget = require("../../models/Budget");
 const validateBudgetInput = require("../../validation/budget");
 
 router.post("/set-budget", (req, res) => {
-
-  const { errors, isValid } = validateBudgetInput(req.body);
-
-  if (!isValid) {
-    return res.json(errors);
-  }
-
   const newBudget = {
     userId: req.body.userId,
     category: req.body.category,
     value: req.body.value
   };
-
+  console.log(newBudget);
   Budget.updateOne(
     { category: req.body.category, userId: req.body.userId },
     newBudget,
