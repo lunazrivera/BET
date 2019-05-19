@@ -28,7 +28,6 @@ const styles = theme => ({
   },
   mainSpacing: {
       padding: 90,
-      marginBottom: 100,
   },
 });
 

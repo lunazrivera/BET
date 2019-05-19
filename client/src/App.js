@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import store from "./store"
 
 import './App.css';
+import Background from "./components/assets/images/wood.jpg"
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
@@ -44,7 +45,10 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div className="App" style={{ backgroundImage: `url(${Background})`,
+                                        width: "100%",
+                                        backgroundSize: "cover",
+                                        overflow: "hidden"}}>
             <div className='page-container'>
               <div className='content-wrap'>
                 <Navbar />

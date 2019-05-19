@@ -55,9 +55,9 @@ class Login extends Component {
 
           return(
                <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
-               <div className="container">
-                    <div style={{marginTop: "4rem"}} className="row">
-                         <div className="col s8 offset-s2">
+               <div className="container" style={{border: '1px solid rgba(0,0,0,0.3)', background: 'white', borderRadius: '5px', width: '60%' }}>
+                    <div className="row">
+                         <div className="col s8 offset-s2 center">
                               <Link to="/" className="btn-flat waves-effect">
                                    <i className="material-icons left">keyboard_backspace</i>
                                    Back to home

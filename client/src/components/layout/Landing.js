@@ -8,16 +8,13 @@ class Landing extends Component {
           return(
                
                <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
-               <div  className="container valign-wrapper">
+               <div  className="container valign-wrapper" >
                     <div className="row">
                          <div className="col s12 center-align">
                               
-                              
                               <h4>
-                                   <b>Track</b> your daily expenses and set your budgets. Bet on us to make the smarter move.
+                                   Bet on us to make the smarter move.
                               </h4>
-                              
-                              {/* <p className="flow-text grey-text text-darken-1">Create a (minimal) full-stack app with user authentication via passport and JWTs</p> */}
                               
                               <br />
 

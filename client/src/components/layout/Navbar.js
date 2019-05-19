@@ -83,7 +83,7 @@ class Navbar extends Component {
                     <Toolbar className={classes.justify}>
                          
                          <div className={classes.grow}>
-                              <Typography  variant="h6" className={classes.grow}>Welcome, {this.props.auth.user.name}</Typography>
+                              <Typography  variant="h6" className={classes.grow}>Welcome, {this.props.auth.user.name} !</Typography>
                          </div>
                          <div className={classes.grow}>
                               <Typography color="inherit" align="center" className={classes.grow}>
