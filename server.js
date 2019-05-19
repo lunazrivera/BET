@@ -1,9 +1,13 @@
+//Requiring dependencies for our server functionality
+require('dotenv').config()
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-const users = require("./routes/api/user")
+const users = require("./routes/api/user"); //Requiring the path for the request to be made got to user routes
+const budgets = require("./routes/api/budget");
+const expenses = require("./routes/api/expense");
 
 const PORT = process.env.PORT || 3002;
 const app = express();
@@ -21,7 +25,8 @@ if (process.env.NODE_ENV === "production") {
 const db = process.env.MONGODB_URI || "mongodb://localhost/bet";
 
 // Connect to MongoDB
-mongoose.connect(db, {useNewUrlParser: true}).then(() => console.log("MongoDB succesfully connected")).catch(err => console.log(err));
+mongoose.connect(db, {useNewUrlParser: true }).then(() => console.log("MongoDB succesfully connected")).catch(err => console.log(err));
+
 
 //Passport middleware
 app.use(passport.initialize())
@@ -31,6 +36,8 @@ require("./config/passport")(passport);
 
 // Define API routes here
 app.use("/api/users", users);
+app.use("/api/budgets", budgets);
+app.use("/api/expenses", expenses);
 
 // Send every other request to the React app
 // Define any API routes before this runs
