@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TableStr from './../TableTemp/TableTemp'
-import {withStyles,Typography, Modal, LinearProgress, Button, CardHeader, Paper, Input, InputLabel,InputAdornment, FormControl} from "@material-ui/core";
+import {withStyles,Typography, Modal, LinearProgress, Button, CardHeader, Paper, Input, InputLabel,InputAdornment, FormControl, Tooltip} from "@material-ui/core";
 // import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
@@ -233,12 +233,12 @@ class CardStructure extends Component {
 
                          <div className={classes.container}>
                               <div className={classes.imgContainer}>
-                                   <img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/>
+                                   <Tooltip title={this.state.totalBudget} placement='top' interactive><img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/></Tooltip>
                               </div>
 
                               <div style={{display: 'flex', justifyContent: 'center'}}>
                                    <div>
-                                        <span>{this.state.totalBudget > 0 ? <Typography style={{color: 'rgba(0,0,0,0.4)'}}> Budget amount: ${this.state.totalBudget} </Typography> : ''}</span>
+                                        <span>{this.state.totalBudget > 0 ? <Typography style={{color: 'rgba(0,0,0,0.4)'}}> Budget amount: ${this.state.totalBudget - this.state.total} </Typography> : ''}</span>
                                    </div>
                               </div>
                          </div>

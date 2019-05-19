@@ -1,12 +1,17 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import betbg from './../assets/images/betbg.png'
+
 
 class Landing extends Component {
      render() {
           return(
-               <div style={{height: "75vh"}} className="container valign-wrapper">
+               
+               <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
+               <div  className="container valign-wrapper">
                     <div className="row">
                          <div className="col s12 center-align">
+                              
                               
                               <h4>
                                    <b>Track</b> your daily expenses and set your budgets. Bet on us to make the smarter move.
@@ -23,6 +28,9 @@ class Landing extends Component {
                          </div>
                     </div>
                </div>
+               </div>
+               
+               
           );
      }
 }

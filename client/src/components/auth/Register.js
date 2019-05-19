@@ -57,7 +57,8 @@ class Register extends Component {
           const {errors} = this.state;
 
           return (
-               <div className="container">
+               <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
+               <div className="container" >
                     <div className="row">
                          <div className="col s8 offset-s2">
                               <Link to="/" className="btn-flat waves-effext">
@@ -104,6 +105,7 @@ class Register extends Component {
                               </form>
                          </div>
                     </div>
+               </div>
                </div>
           );
      }

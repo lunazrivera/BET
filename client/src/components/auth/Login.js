@@ -54,6 +54,7 @@ class Login extends Component {
           const {errors} = this.state;
 
           return(
+               <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
                <div className="container">
                     <div style={{marginTop: "4rem"}} className="row">
                          <div className="col s8 offset-s2">
@@ -89,6 +90,7 @@ class Login extends Component {
 
                          </div>
                     </div>
+               </div>
                </div>
           );
      }
