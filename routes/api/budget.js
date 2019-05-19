@@ -32,6 +32,12 @@ router.post("/save-cardtotal", (req,res) => {
 });
 
 router.post("/set-budget", (req, res) => {
+  const { errors, isValid } = validateBudgetInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const newBudget = {
     userId: req.body.userId,
     category: req.body.category,

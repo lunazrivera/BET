@@ -8,7 +8,6 @@ module.exports = function validateBudgetInput(data) {
      //functions
      
      data.value = !isEmpty(data.value) ? data.value : "";
-     console.log(data.value, 'in validate budget')
 
      //Value verification
 
