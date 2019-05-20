@@ -11,9 +11,9 @@ router.post("/save-cardtotal", (req,res) => {
     const newCardTotal = {
       cardTotal: req.body.cardTotal
     };
-    console.log();
-    console.log("Coming from save Card Total")
-    console.log(newCardTotal)
+    // console.log();
+    // console.log("Coming from save Card Total")
+    // console.log(newCardTotal)
     Budget.updateOne(
       { category: req.body.category, userId: req.body.userId },
       newCardTotal,
@@ -32,14 +32,24 @@ router.post("/save-cardtotal", (req,res) => {
 });
 
 router.post("/set-budget", (req, res) => {
+  const {errors, isValid} = validateBudgetInput(req.body);
+  console.log();
+  console.log("Coming from set-budget, corroborating errors and isValid");
+  console.log(errors, isValid);
+
+  if (!isValid) {
+    console.log('coming from if statement', errors)
+    return res.json(errors);
+  }
+  
   const newBudget = {
     userId: req.body.userId,
     category: req.body.category,
-    value: req.body.value
+    value: parseFloat(req.body.value)
   };
-  console.log();
-  console.log("Coming from set budget");
-  console.log(newBudget);
+  // console.log();
+  // console.log("Coming from set budget");
+  // console.log(newBudget);
   Budget.updateOne(
     { category: req.body.category, userId: req.body.userId },
     newBudget,
@@ -54,7 +64,6 @@ router.post("/set-budget", (req, res) => {
       }
     }
   );
-
   // newBudget.save(req.body).then(budget => res.json(budget)).catch(err => console.log(err));
 });
 

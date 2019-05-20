@@ -72,7 +72,7 @@ class CardStructure extends Component {
                open: false,
                budget: "",
                expenses: [],
-               errors: {},
+               error: '',
           };
           this.handleToggle = this.handleToggle.bind(this);
           this.handleOpen = this.handleOpen.bind(this);
@@ -118,11 +118,28 @@ class CardStructure extends Component {
           let newBudget = {
                userId: this.props.userIn.id,
                category: this.props.name,
-               value: parseFloat(this.state.budget)
+               value: this.state.budget
           };
           this.saveBudget(newBudget);
           this.setState({ budget: '' });
           
+     };
+     saveBudget =(object) => {
+          axios.post("/api/budgets/set-budget", object).then((response) => {
+               console.log()
+               console.log("Coming from saveBudget function in CardTemp!")
+               console.log(response);
+               this.setState({errors: ''})
+               if (response.data.value === 'An amount is required') {
+                    this.setState({errors: response.data.value})
+               } else if (response.data.value === "Amount must be a number") {
+                    console.log(this.state.errors);
+                    this.setState({errors: response.data.value})
+               } else {
+               this.setState({totalBudget: response.data.value});
+               this.handleClose();
+               }
+          })
      };
 
      //This is our functions to retrieve, saved budget and  saved expenses
@@ -181,15 +198,7 @@ class CardStructure extends Component {
           }).catch(err => console.log(err))
      }
 
-     saveBudget =(object) => {
-          axios.post("/api/budgets/set-budget", object).then((response) => {
-               console.log()
-               console.log("Coming from saveBudget function in CardTemp!")
-               console.log(response);
-               this.setState({totalBudget: response.data.value});
-               this.handleClose();
-          })
-     };
+
 
      //This is our expenses functions
      createExpenses = (expenseObject) => {
@@ -199,7 +208,7 @@ class CardStructure extends Component {
                     const expenses = this.state.expenses.concat(response.data);
                     console.log();
                     console.log("Coming from creatExpenses function in CardTemp!");
-                    console.log('totalin create expenses', total);
+                    console.log('total in create expenses', total);
                     this.setState({
                          expenses,
                          total
@@ -259,6 +268,7 @@ class CardStructure extends Component {
                                         <div className={classes.imgContainer}>
                                              <img onClick={this.handleToggle} src={this.props.cardImg} alt='' className={classes.media}/>
                                         </div>
+                                             
                                    </div>
                                    <form onSubmit={this.handleSubmitBudget} style={{display: 'flex', justifyContent: 'center'}}>
                                         <FormControl fullWidth>
@@ -271,7 +281,7 @@ class CardStructure extends Component {
                                                   startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                                                   style={{marginBottom: '6px'}}
                                              />
-
+                                             <span className="red-text" style={{textAlign: 'center'}}>{this.state.errors}</span>
                                              <Button variant="contained" type="submit" color='secondary'   className={classes.button}>
                                                   Submit
                                              </Button>

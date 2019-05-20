@@ -293,7 +293,7 @@ class ExpenseTable extends React.Component {
       open: false,
       description: '',
       date: '',
-      amount: 0,
+      amount: '',
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -377,13 +377,13 @@ class ExpenseTable extends React.Component {
     let newExpense = {
       userId: this.props.userIn.id,
       category: this.props.categoryName,
-      value: this.state.amount,
+      value: parseFloat(this.state.amount),
       date: this.state.date,
       description:this.state.description
     }
 
     this.props.createExpenses(newExpense)
-    this.setState({amount: 0, description: '', date: ''})
+    this.setState({amount: '', description: '', date: ''})
     this.handleClose()
   }
 
