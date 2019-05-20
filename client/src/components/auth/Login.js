@@ -81,6 +81,7 @@ class Login extends Component {
                                    <div className="input-field col s12">
                                         <input onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" className={classnames("", {invalid: errors.password || errors.passwordincorrect})} />
                                         <label htmlFor="password">Password</label>
+                                        <span className="red-text">{errors.password} {errors.passwordincorrect}</span>
                                    </div>
 
                                    <div className="col s12" style={{paddingLeft: "11.250"}}>
