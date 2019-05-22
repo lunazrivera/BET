@@ -10,7 +10,7 @@ With this in mind we embarked on creating an application that focuses on creatin
 
 
 
-| | |
+|  | Technologies used|
 | ------ | ----------- |
 | Front-end: | Material UI, React, JSX, JavaScript (ES6), CSS |
 | Back-end: | Redux, MongoDB, Node.js,  |
