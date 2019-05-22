@@ -75,9 +75,9 @@ class Navbar extends Component {
 
      getJoke = () => {
           this.setState({joke: ''});
-          axios.get(`http://api.icndb.com/jokes/random`).then(response => {
-               console.log(response.value.joke);
-               // this.setState({joke: response})
+          axios.get(`https://cors-anywhere.herokuapp.com/api.icndb.com/jokes/random?firstName=${this.props.auth.user.name}`).then(response => {
+               console.log(response.data.value.joke);
+               this.setState({joke: response.data.value.joke})
           }).catch(error => { console.log(error)})
      };
 
@@ -94,7 +94,7 @@ class Navbar extends Component {
                     <Toolbar className={classes.justify}>
                          
                          <div className={classes.grow}>
-                              <Typography  variant="h6" className={classes.grow}>{isEmpty(this.state.joke) ? "Welcome," : this.state.joke} {this.props.auth.user.name} !</Typography>
+                              <Typography  variant="h6" className={classes.grow}>{isEmpty(this.state.joke) ? `Welcome, ${this.props.auth.user.name} ` : this.state.joke}!</Typography>
                          </div>
                          <div className={classes.grow}>
                               <Typography color="inherit" align="center" className={classes.grow}>
