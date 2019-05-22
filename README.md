@@ -35,11 +35,11 @@ We are planning on rolling out adding additional features to the app. The follow
 ###  Our Team
 
 **Front-end:**
-- [Mario Franco]([https://github.com/Mari0Franc0](https://github.com/Mari0Franc0) "Mario Franco's Github Profile")
-- [DAM HEE BAGILEO]([https://github.com/flyingdamia](https://github.com/flyingdamia) "DAM HEE BAGILEO's Github Profile")
+- [Mario Franco](https://github.com/Mari0Franc0 "Mario Franco's Github Profile")
+- [DAM HEE BAGILEO](https://github.com/flyingdamia "DAM HEE BAGILEO's Github Profile")
 
 
 **Back-end:**
- - [Luna Rivera]([https://github.com/lunazrivera](https://github.com/lunazrivera) "Luna Rivera's Github Profile")
- - [Arin Minasian]([https://github.com/arinmsn](https://github.com/arinmsn) "Arin Minasian's Github Profile")
+ - [Luna Rivera](https://github.com/lunazrivera "Luna Rivera's Github Profile")
+ - [Arin Minasian](https://github.com/arinmsn "Arin Minasian's Github Profile")
  
