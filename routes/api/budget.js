@@ -33,12 +33,12 @@ router.post("/save-cardtotal", (req,res) => {
 
 router.post("/set-budget", (req, res) => {
   const {errors, isValid} = validateBudgetInput(req.body);
-  console.log();
-  console.log("Coming from set-budget, corroborating errors and isValid");
-  console.log(errors, isValid);
+  // console.log();
+  // console.log("Coming from set-budget, corroborating errors and isValid");
+  // console.log(errors, isValid);
 
   if (!isValid) {
-    console.log('coming from if statement', errors)
+    // console.log('coming from if statement', errors);
     return res.json(errors);
   }
   

@@ -7,8 +7,8 @@ class Landing extends Component {
      render() {
           return(
                
-               <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center', border: '1px solid black'}}>
-               <div  className="container valign-wrapper" >
+               <div style={{height: "87vh",display: 'flex', flexDirection: 'column', justifyContent:'center'}}>
+               <div  className="container valign-wrapper" style={{border: '1px solid rgba(0,0,0,0.3)', background: 'white', borderRadius: '5px', width: '60%' }}>
                     <div className="row">
                          <div className="col s12 center-align">
                               

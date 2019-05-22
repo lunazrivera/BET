@@ -23,15 +23,6 @@ import Icon from '@material-ui/core/Icon';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import moment from 'moment'
 
-
-
-/// Sort and Selecting 
-// let counter = 0;
-// function createData(date, description, amount) {
-//   counter += 1;
-//   return { id: counter, date, description, amount };
-// }
-
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -61,7 +52,6 @@ const rows = [
   { id: 'description', numeric: false, disablePadding: false, label: 'Description', align: 'center'},
   { id: 'amount', numeric: true, disablePadding: false, label: 'Amount($)', align: 'right'},
 ];
-
 class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
@@ -214,6 +204,8 @@ let EnhancedTableToolbar = (props) => {
                     helperText="Add some description"
                     margin="normal"
                     />
+                    
+
                   <TextField
                     style={{marginBottom: '30px', marginTop: '0px'}}
                     id="date"
@@ -267,7 +259,7 @@ const styles = theme => ({
     minHeight: 'auto',
   },
   tableWrapper: {
-    overflowX: 'auto',
+    overflowX: 'hidden',
   },
   paper: {
     position: 'absolute',
@@ -294,6 +286,7 @@ class ExpenseTable extends React.Component {
       description: '',
       date: '',
       amount: '',
+      errors: []
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -359,13 +352,13 @@ class ExpenseTable extends React.Component {
 
   handleExpenseDeletion() {
     let selected = this.state.selected;
-    console.log();
-    console.log("Coming from handleExpenseDeletion function in TableTemp");
-    console.log(selected);
+    // console.log();
+    // console.log("Coming from handleExpenseDeletion function in TableTemp");
+    // console.log(selected);
     axios.post("/api/expenses/delete-expenses", selected).then((response) => {
-      console.log();
-      console.log("Coming from axios post inside handleExpenseDeletion");
-      console.log(response);
+      // console.log();
+      // console.log("Coming from axios post inside handleExpenseDeletion");
+      // console.log(response);
       this.props.getExpenses()
       this.props.deletedData(selected)
       this.setState({selected: []})
@@ -377,14 +370,15 @@ class ExpenseTable extends React.Component {
     let newExpense = {
       userId: this.props.userIn.id,
       category: this.props.categoryName,
-      value: parseFloat(this.state.amount),
+      value: this.state.amount,
       date: this.state.date,
       description:this.state.description
     }
 
-    this.props.createExpenses(newExpense)
+    this.props.createExpenses(newExpense);
+    this.props.getExpenses()
     this.setState({amount: '', description: '', date: ''})
-    this.handleClose()
+
   }
 
   handleInputs(event) {
@@ -413,7 +407,7 @@ class ExpenseTable extends React.Component {
           amount={this.state.amount}
           onInputs={this.handleInputs}
           submit={this.handleExpenseSubmit}
-          onDelete={this.handleExpenseDeletion} 
+          onDelete={this.handleExpenseDeletion}
           />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
@@ -424,7 +418,6 @@ class ExpenseTable extends React.Component {
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
-              
             />
             <TableBody>
               {stableSort(data, getSorting(order, orderBy))
@@ -448,7 +441,7 @@ class ExpenseTable extends React.Component {
                         {moment(n.date).format("MMMM DD YYYY")}
                         </TableCell>
                         <TableCell align="right">{n.description}</TableCell>
-                        <TableCell align="right">{n.value}</TableCell>
+                        <TableCell align="right">$ {n.value}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -479,7 +472,6 @@ class ExpenseTable extends React.Component {
     );
   }
 }
-
 
 ExpenseTable.propTypes = {
   classes: PropTypes.object.isRequired,

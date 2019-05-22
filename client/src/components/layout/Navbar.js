@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import axios from 'axios';
+import isEmpty from 'is-empty'
 
 
 
@@ -55,6 +57,7 @@ class Navbar extends Component {
 
      state = {
           anchorEl: null,
+          joke: ''
      };
 
      handleClick = event => {
@@ -70,6 +73,14 @@ class Navbar extends Component {
           this.props.logoutUser();
      };
 
+     getJoke = () => {
+          this.setState({joke: ''});
+          axios.get(`http://api.icndb.com/jokes/random`).then(response => {
+               console.log(response.value.joke);
+               // this.setState({joke: response})
+          }).catch(error => { console.log(error)})
+     };
+
      render() {
 
           const {anchorEl} = this.state;
@@ -83,11 +94,11 @@ class Navbar extends Component {
                     <Toolbar className={classes.justify}>
                          
                          <div className={classes.grow}>
-                              <Typography  variant="h6" className={classes.grow}>Welcome, {this.props.auth.user.name} !</Typography>
+                              <Typography  variant="h6" className={classes.grow}>{isEmpty(this.state.joke) ? "Welcome," : this.state.joke} {this.props.auth.user.name} !</Typography>
                          </div>
                          <div className={classes.grow}>
                               <Typography color="inherit" align="center" className={classes.grow}>
-                              <img src={logo} className={classes.logo} alt="logo"/>
+                              <img src={logo} className={classes.logo} onClick={this.getJoke} alt="logo"/>
                               </Typography>
                          </div>
                          <div className={classes.rightAlign}>

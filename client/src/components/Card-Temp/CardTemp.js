@@ -126,14 +126,14 @@ class CardStructure extends Component {
      };
      saveBudget =(object) => {
           axios.post("/api/budgets/set-budget", object).then((response) => {
-               console.log()
-               console.log("Coming from saveBudget function in CardTemp!")
-               console.log(response);
+               // console.log()
+               // console.log("Coming from saveBudget function in CardTemp!")
+               // console.log(response);
                this.setState({errors: ''})
                if (response.data.value === 'An amount is required') {
                     this.setState({errors: response.data.value})
                } else if (response.data.value === "Amount must be a number") {
-                    console.log(this.state.errors);
+                    // console.log(this.state.errors);
                     this.setState({errors: response.data.value})
                } else {
                this.setState({totalBudget: response.data.value});
@@ -163,9 +163,9 @@ class CardStructure extends Component {
                          expenses,
                          total
                     })
-                    console.log();
-                    console.log("Coming from getExpenses function from CardTemp");
-                    console.log(this.state.expenses)
+                    // console.log();
+                    // console.log("Coming from getExpenses function from CardTemp");
+                    // console.log(this.state.expenses)
                }
           })
      };
@@ -191,12 +191,12 @@ class CardStructure extends Component {
                cardTotal: this.state.total
           };
           axios.post('/api/budgets/save-cardtotal', total).then((response) => {
-               console.log();
-               console.log("Coming from saveCardTotal function in CardTemp");
-               console.log(response);
+               // console.log();
+               // console.log("Coming from saveCardTotal function in CardTemp");
+               // console.log(response);
                
           }).catch(err => console.log(err))
-     }
+     };
 
 
 
@@ -204,17 +204,30 @@ class CardStructure extends Component {
      createExpenses = (expenseObject) => {
           axios.post("/api/expenses/create-expense", expenseObject).then(
                (response) => {
-                    const total = this.state.expenses.concat(response.data).reduce((prior, ex) => ex.value + prior, 0);
-                    const expenses = this.state.expenses.concat(response.data);
-                    console.log();
-                    console.log("Coming from creatExpenses function in CardTemp!");
-                    console.log('total in create expenses', total);
-                    this.setState({
-                         expenses,
-                         total
-                    });
-                    this.saveCardTotal();
+                    if (response.data.description === "A description is required") {
+                         return
+                    } else if(response.data.description === "Description can't be a number") {
+                         return
+                    } else if (response.data.value === "An amount is required") {
+                         return
+                    } else if (response.data.value === "Amount must be a number") {
+                         return
+                    } else if (response.data.date) {
+                         return
+                    }else {
+                         const total = this.state.expenses.concat(response.data).reduce((prior, ex) => ex.value + prior, 0);
+                         const expenses = this.state.expenses.concat(response.data);
+                         this.setState({
+                              expenses,
+                              total
+                         });
+                         this.saveCardTotal(); 
+                         
+                    }
+
+                    
                });
+          
      }
 
      render() {
@@ -224,16 +237,32 @@ class CardStructure extends Component {
           if (this.state.toggle) {
                return(
                     <Paper className={this.props.st}>
+
                          <div className={classes.container2}>
                               <div className={classes.imgContainer}>
-                                   <img onClick={this.handleToggle} src={this.props.cardImg}   className={classes.media2} alt="card-logo" />
+
+                                   <img 
+                                   onClick={this.handleToggle} 
+                                   src={this.props.cardImg}   
+                                   className={classes.media2} 
+                                   alt="card-logo" 
+                                   />
+
                               </div>
                          </div>
-                              <TableStr categoryName={this.props.name} userIn={this.props.userIn} expensesArray={this.state.expenses} getExpenses={this.getExpenses} createExpenses={this.createExpenses} deletedData={this.getDataFromDeletedExpense} />
+
+                              <TableStr 
+                              categoryName={this.props.name} 
+                              userIn={this.props.userIn} 
+                              expensesArray={this.state.expenses} 
+                              getExpenses={this.getExpenses} 
+                              createExpenses={this.createExpenses} 
+                              deletedData={this.getDataFromDeletedExpense}
+                              />
+
                     </Paper>
                );
           } else {
-               // debugger;
                return(
                     <Paper className={this.props.st}>
                          <CardHeader  action={<Button variant='outlined' onClick={this.handleOpen} color='secondary'>Set Budget</Button>}>
