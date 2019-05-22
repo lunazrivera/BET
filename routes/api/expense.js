@@ -49,12 +49,23 @@ router.get("/get-expenses/:id/:category/", (req, res) => {
   });
 });
 
-router.post("/delete-expenses", (req, res) => {
-  Expense.updateMany({_id: { $in: req.body }},{ $set: { softDelete : true }}, function(err, data) {
-    if (err) {console.log(err)}
+router.get("/get-data/:category/:months/:id", (req, res) => {
+  console.log();
+  console.log("Coming from get-data");
+  // console.log(req.params.months.split(','))
+  Expenses.aggregate([{$match: {category: req.params.category, userId: req.params.id}}, {$group: { _id: req.params.id,total: {$sum: "$value"}}}], function(err, data) {
     res.json(data);
   })
 })
+
+router.post("/delete-expenses", (req, res) => {
+  Expense.updateMany({_id: { $in: req.body }},{ $set: { softDelete : true }}, 
+    function(err, data) {
+      if (err) {console.log(err)};
+      res.json(data);
+    })
+});
+
 
 
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
+
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
@@ -9,7 +10,7 @@ import {Provider} from "react-redux";
 import store from "./store"
 
 import './App.css';
-import Background from "./components/assets/images/wood.jpg"
+// import Background from "./components/assets/images/wood.jpg";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
@@ -17,6 +18,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import Footer from "./components/layout/Footer";
+import Graph from "./components/Graph/Graph";
 
 
 //Check for token to keep user logged in
@@ -45,7 +47,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App" style={{ backgroundImage: `url(${Background})`,
+          <div className="App" style={{ background: 'white',
                                         width: "100%",
                                         backgroundSize: "cover",
                                         overflow: "hidden"}}>
@@ -57,6 +59,7 @@ class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <PrivateRoute exact path="/graph" component={Graph} />
                 </Switch>
               </div>
               <Footer />

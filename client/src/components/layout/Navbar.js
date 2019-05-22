@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import axios from 'axios';
 import isEmpty from 'is-empty'
 
-
-
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
@@ -107,7 +106,8 @@ class Navbar extends Component {
                               </IconButton>
                          </div>
                          <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
-                              <MenuItem onClick={this.handleClose}>Link Account</MenuItem>
+                              <MenuItem onClick={this.handleClose}><Link to="/graph">Monthly Graph</Link></MenuItem>
+                              <MenuItem onClick={this.handleClose}><Link to="/dashboard">Dashboard</Link></MenuItem>
                               <MenuItem onClick={this.onLogoutClick}>Logout</MenuItem>
                          </Menu>    
                          
