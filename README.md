@@ -20,6 +20,8 @@ With this in mind we embarked on creating an application that focuses on creatin
 
 [Visit the link to see a video demo.](https://www.dropbox.com/s/cc8x9e8iw8rvnv7/bet_1.mp4?dl=0 "Demo of the app")
 
+Try out the app here: https://bet-bill-expense-tracker.herokuapp.com/
+
 ## Future improvements
 We are planning on rolling out adding additional features to the app. The following are some of the ideas we have at the moment:
 -   Show user a reminder for upcoming bills.
